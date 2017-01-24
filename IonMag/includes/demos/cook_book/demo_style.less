@@ -1,0 +1,130 @@
+@import "../../less_files/variables.less";
+@import "../../less_files/mixin.less";
+
+/* Recipes demo */
+.td-cook-book {
+
+  &.td-boxed-layout #td-outer-wrap {
+    /* responsive on desktop */
+    @media (min-width: 1080px) {
+      width: 1060px;
+      margin: 0 auto;
+      -webkit-box-shadow: 0 0 20px 0 rgba(0,0,0,0.1);
+      -moz-box-shadow: 0 0 20px 0 rgba(0,0,0,0.1);
+      box-shadow: 0 0 20px 0 rgba(0,0,0,0.1);
+      margin-top: 40px;
+    }
+  }
+  .td-header-style-pr-2 {
+    .td-header-sp-top-widget .td-search-btns-wrap i,
+    .td-header-sp-top-widget .td-social-icon-wrap i {
+      min-width: 32px;
+    }
+  }
+
+  .td-header-logo-wrap {
+    padding: 0;
+
+    .td-container {
+      width: 100%;
+    }
+  }
+
+  .td_module_1,
+  .td_module_rd_2 {
+    .entry-title {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      font-size: 18px;
+      line-height: 23px;
+
+      &:after {
+        display: none;
+      }
+    }
+  }
+
+  .td-mx-15 {
+    .entry-title {
+      font-size: 17px;
+      line-height: 21px;
+    }
+  }
+
+  .td-mx-19 {
+    .entry-title {
+      font-size: 21px;
+      line-height: 25px;
+    }
+  }
+
+  &.single_template_rd_14 {
+    .td-post-title .entry-title {
+      font-weight: bold;
+    }
+  }
+
+  .block-title {
+    padding-right: 6px;
+
+    &:after {
+      height: 3px;
+      .opacity(0.7);
+    }
+  }
+
+  .td-recipe-time {
+    width: 100%;
+    border: 1px solid #ededed;
+    padding: 11px 16px;
+    margin-bottom: 26px;
+
+    br {
+      display: none;
+    }
+
+    .td-recipe-info {
+      float: left;
+      width: 33.3333%;
+
+      /* responsive portrait tablet */
+      @media (max-width: @responsive_p_tablet_max) {
+        width: 100%;
+      }
+    }
+  }
+
+  .footer-social-wrap {
+    margin-bottom: 0;
+
+    &:after {
+      display: none;
+    }
+  }
+
+  .td-social-icon-wrap i {
+    margin-right: 0;
+  }
+
+  .td-social-name {
+    display: none;
+  }
+
+  /* responsive portrait phone */
+  @media (max-width: @responsive_p_phone_max) {
+    .footer-text-wrap {
+      font-size: 13px;
+      line-height: 21px;
+    }
+  }
+
+  .td-scroll-up {
+    background-color: @td_theme_color;
+    border-color: @td_theme_color;
+
+    &:hover {
+      background-color: #000;
+      border-color: #000;
+    }
+  }
+}

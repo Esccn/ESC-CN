@@ -1,0 +1,145 @@
+/*  ----------------------------------------------------------------------------
+    General Category Templates
+*/
+.td-category-header {
+  clear: both;
+
+  .td-container {
+    position: relative;
+  }
+
+  .entry-title {
+    display: block;
+    margin-bottom: 20px;
+    padding-bottom: 17px;
+    font-size: 25px;
+    line-height: 24px;
+    text-transform: uppercase;
+
+    &:after {
+      display: block;
+      width: 80px;
+    }
+  }
+
+  .td-category-siblings {
+    margin: 0 0 13px 0;
+  }
+
+  .td-pulldown-filter-list {
+    margin: 0;
+  }
+
+  .entry-category {
+    list-style: none;
+    display: inline-block;
+    margin: 0 5px 5px 0;
+    line-height: 0;
+
+    a {
+      display: inline-block;
+      font-family: @font2;
+      padding: 3px 6px;
+      background-color: rgba(0, 0, 0, 0.8);
+      font-size: 10px;
+      font-weight: 500;
+      line-height: 1;
+      color: #fff;
+
+      &:hover {
+        background-color: @td_theme_color;
+      }
+    }
+  }
+}
+
+.td-category-crumb-filter {
+  margin-bottom: 6px;
+  padding-top: 22px;
+  .clearfix();
+
+  /* responsive portrait phone */
+  @media (max-width: @responsive_p_phone_max) {
+    padding-top: 12px;
+  }
+
+  .entry-crumbs {
+    padding-top: 3px;
+    float: left;
+  }
+
+  .td-wrapper-pulldown-filter {
+    position: relative;
+    float: right;
+    margin-top: -3px;
+  }
+
+  .td-pulldown-filter-display-option {
+    padding-left: 0;
+
+    &:before {
+      display: none;
+    }
+  }
+}
+
+.td-category-description {
+  display: table;
+
+  p {
+    font-style: italic;
+    font-family: @font2;
+    color: #666;
+    font-size: 15px;
+    line-height: 23px;
+  }
+}
+
+.td-category-grid {
+  .td_block_wrap {
+    margin-bottom: 40px;
+  }
+
+  .td_block_big_grid_2,
+  .td_block_big_grid_3 {
+    margin-bottom: 50px;
+  }
+}
+
+
+/*  ----------------------------------------------------------------------------
+    Category template 1
+*/
+.td_category_template_1 {
+  .td-category-header {
+    .entry-title {
+      text-align: center;
+
+      &:after {
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  .td-category-crumb-filter {
+    margin-bottom: 12px;
+    /* responsive portrait phone */
+    @media (max-width: @responsive_p_phone_max) {
+      margin-bottom: 16px;
+    }
+  }
+
+  .td-category-description {
+    width: 80%;
+    margin: 22px auto 33px;
+    text-align: center;
+
+    /* responsive portrait phone */
+    @media (max-width: @responsive_p_phone_max) {
+      width: 100%;
+      margin-bottom: 22px;
+    }
+  }
+}

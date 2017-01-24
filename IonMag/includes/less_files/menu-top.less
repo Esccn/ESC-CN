@@ -1,0 +1,244 @@
+.td-header-top-menu {
+  position: relative;
+  background-color: #1a1f2b;
+  font: 12px @font2;
+  color: #fff;
+  z-index: 9999;
+
+  /* responsive portrait phone */
+  @media (max-width: @responsive_p_phone_max) {
+    display: none !important;
+  }
+
+  a {
+    color: #fff;
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    opacity: 0.07;
+    background-color: #fff;
+  }
+}
+
+/* left menu side */
+.td-header-sp-top-menu {
+  line-height: 35px;
+  z-index: 1000;
+  float: left;
+
+  .td_ul_login {
+    margin-right: 20px;
+  }
+
+  .td_ul_logout {
+    margin-right: 40px;
+  }
+}
+
+/*  ----------------------------------------------------------------------------
+    top-menu data time
+*/
+.td_data_time {
+  display: inline-block;
+  margin-right: 36px;
+}
+
+/*  ----------------------------------------------------------------------------
+    login & menu
+*/
+.menu-top-container {
+  display: inline-block;
+}
+
+.top-header-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+
+  & > li {
+    display: inline-block;
+    position: relative;
+    margin-left: 0;
+    line-height: 35px;
+
+    a {
+      margin-right: 16px;
+      line-height: 1;
+      text-decoration: none;
+    }
+
+    &:last-of-type a {
+      margin-right: 0;
+    }
+  }
+
+  .avatar {
+    border-radius: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  }
+
+  .td-icon-menu-down {
+    padding-left: 5px;
+    font-size: 6px;
+    position: relative;
+    top: -1px;
+    vertical-align: middle;
+  }
+
+  .td-icon-logout {
+    font-size: 10px;
+    line-height: 1 !important;
+    position: relative;
+    margin-right: 2px;
+    vertical-align: middle;
+  }
+
+  .sub-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: -20px;
+    padding: 10px 0;
+    min-width: 130px;
+    background-color: #fff;
+    .box-shadow(inset 0 0 1px 0 rgba(0, 0, 0, 0.25));
+    z-index: 1000;
+    list-style: none;
+
+    li {
+      width: 100%;
+      line-height: 1;
+      margin: 0;
+    }
+
+    a {
+      display: block;
+      padding: 2px 20px;
+      margin: 0;
+      white-space: nowrap;
+      line-height: 20px;
+      color: #000;
+      font-weight: 500;
+    }
+  }
+
+  .td_user_logd_in {
+    font-weight: bold;
+    margin-left: 25px;
+
+    &:hover {
+      text-decoration: none !important;
+    }
+  }
+
+  // hover submenu & megamenu
+  > .td-normal-menu:hover {
+    > .sub-menu {
+      display: block !important;
+    }
+  }
+
+  .sub-menu,
+  ul .td-icon-menu-down,
+  .td-mega-menu .td-icon-menu-down {
+    display: none !important;
+  }
+}
+
+.td_sp_login_ico_style {
+  position: absolute;
+  top: 3px;
+  right: -9px;
+}
+
+.td_sp_logout_ico_style {
+  top: 3px;
+  left: 17px;
+}
+// active menus
+.td-header-top-menu {
+  .top-header-menu {
+    // current top menu
+    a:hover,
+    .current-menu-item > a,
+    .current-menu-ancestor > a,
+    .current-category-ancestor > a {
+      color: @td_theme_color;
+    }
+  }
+}
+
+/*  ----------------------------------------------------------------------------
+    search & social
+*/
+.td-header-sp-top-widget {
+  float: right;
+  position: relative;
+
+  .td-search-btns-wrap,
+  .td-social-icon-wrap {
+    i {
+      line-height: 35px;
+      font-size: 13px;
+      min-width: 38px;
+
+      &:before {
+        vertical-align: middle;
+      }
+    }
+  }
+
+  .td-search-btns-wrap:before,
+  .td-social-icon-wrap:first-of-type:before,
+  .td-social-icon-wrap:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1px;
+    height: 100%;
+    background-color: #fff;
+    .opacity(0.07);
+  }
+
+  .td-search-btns-wrap:before,
+  .td-social-icon-wrap:first-of-type:before {
+    right: auto;
+    left: 0;
+  }
+
+  .td-search-btns-wrap {
+    float: left;
+
+    &:hover .td-icon-search {
+      .opacity(0.8);
+    }
+  }
+
+  .td-social-icon-wrap {
+    float: left;
+    position: relative;
+
+    & > a {
+      display: inline-block;
+    }
+  }
+
+  #td-header-search-button i {
+    margin-left: 0;
+  }
+
+  .td-drop-down-search:after {
+    display: none;
+  }
+}

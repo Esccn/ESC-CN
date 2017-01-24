@@ -1,0 +1,56 @@
+/*  ----------------------------------------------------------------------------
+    Module 3
+*/
+.td_module_3 {
+  padding-bottom: 30px;
+
+  .td-module-image {
+    margin: 0 20px 0 0;
+    width: 100px;
+
+    /* responsive landscape tablet */
+    @media (min-width: @responsive_l_tablet_min) and (max-width: @responsive_l_tablet_max) {
+      margin: 0 15px 0 0;
+    }
+    /* responsive portrait tablet */
+    @media (min-width: @responsive_p_tablet_min) and (max-width: @responsive_p_tablet_max) {
+      width: 80px;
+      margin: 0 12px 0 0;
+    }
+    /* responsive portrait phone */
+    @media (max-width: @responsive_p_phone_max) {
+      margin: 0 15px 0 0;
+    }
+  }
+
+  .td-module-title {
+    padding-bottom: 0;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 16px;
+    margin-bottom: 7px;
+
+    /* responsive portrait phone */
+    @media (min-width: 321px) and (max-width: @responsive_p_phone_max) {
+      font-size: 15px;
+      line-height: 20px;
+      font-weight: 600;
+    }
+
+    &:after {
+      display: none;
+    }
+  }
+
+  .entry-review-stars {
+    vertical-align: middle;
+  }
+
+  .td-video-play-ico > img {
+    width: 28px;
+  }
+
+  .td_quote_on_blocks {
+    display: none;
+  }
+}

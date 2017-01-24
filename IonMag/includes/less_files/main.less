@@ -1,0 +1,157 @@
+/*
+Theme Name: 	IonMag
+Theme URI: 		http://wpion.com
+Description: 	Free Premium WordPress template, clean and easy to use.
+Version: 		__td_deploy_version__
+Author: 		WPion
+Author URI: 	http://wpion.com
+License:
+License URI:
+Tags: black, white, one-column, two-columns, fixed-layout
+*/
+
+
+/*
+
+  _____            __  __
+ |_   _|          |  \/  |
+   | |  ___  _ __ | \  / | __ _  __ _
+   | | / _ \| '_ \| |\/| |/ _` |/ _` |
+  _| || (_) | | | | |  | | (_| | (_| |
+ |_____\___/|_| |_|_|  |_|\__,_|\__, |
+                                 __/ |
+                                |___/
+
+  ~ WPion 2016 ~
+
+  Thanks for using our theme!
+
+*/
+
+
+// speed booster fix
+body {
+  visibility: visible !important;
+  background-color: #fff;
+}
+
+@import "variables.less";
+@import "mixin.less";
+
+// Reset
+@import "normalize.less";
+
+
+// Reset the box-sizing
+//
+// Heads up! This reset may cause conflicts with some third-party widgets.
+// For recommendations on resolving such conflicts, see
+// http://getbootstrap.com/getting-started/#third-box-sizing
+
+* {
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
+}
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  width : auto\9;
+  height: auto;
+}
+
+
+// grid
+@import "grid/grid.less";
+@import "grid/grid_blocks.less";
+@import "grid/grid_responsive.less";
+@import "boxed.less";
+
+
+// header
+@import "header.less";
+@import "header-styles.less";
+@import "header-search.less";
+@import "menu-top.less";
+@import "menu-top-styles.less";
+@import "menu-header.less";
+@import "menu-mobile.less";
+
+
+// type
+@import "type.less";
+
+// modules
+@import "pagebuilder/modules/modules.less";
+@import "pagebuilder/modules/module_1.less";
+@import "pagebuilder/modules/module_2.less";
+@import "pagebuilder/modules/module_3.less";
+@import "pagebuilder/modules/module_4.less";
+@import "pagebuilder/modules/module_5.less";
+@import "pagebuilder/modules/module_6.less";
+
+@import "pagebuilder/modules/module_mx2.less";
+
+// blocks
+@import "pagebuilder/shortcodes/blocks.less";
+@import "pagebuilder/shortcodes/big-grids-mx.less";
+@import "pagebuilder/shortcodes/big-grids-style.less";
+@import "pagebuilder/shortcodes/big-grids.less";
+@import "pagebuilder/shortcodes/top-authors.less";
+
+//css splitter for ie8 ie9
+;#td_css_split_separator{visibility: visible};
+
+
+// post and page
+@import "post.less";
+@import "galleries.less";
+@import "comments.less";
+@import "page.less";
+@import "review.less";
+@import "category-templates.less";
+
+
+// more stories box
+@import "more-stories.less";
+
+
+// misc
+@import "font-icons.less";
+@import "magnific-popup.less";
+@import "modal-windows.less";
+@import "pagebuilder/shortcodes/td-block-ad-box.less";
+@import "widgets-default.less";
+@import "social-counter.less";
+@import "to-top.less";
+@import "print.less";
+
+
+// smart lists
+@import "smart-lists.less";
+
+
+// instagram widget
+@import "instagram.less";
+
+
+// footer
+@import "footer.less";
+@import "footer-styles.less";
+
+
+// demos
+
+
+// loading box css
+@import "td_loading_box.less";
+@import "animation-stack.less";
+
+// custom css for devices
+@import "td-detect.less";
