@@ -32,7 +32,6 @@ class td_module_5 extends td_module {
                 </div>
             </div>
 
-            <?php echo $this->get_quotes_on_blocks();?>
             <div class="clearfix"></div>
         </div>
 

@@ -1,4 +1,3 @@
-
 // jQuery Easing v1.3 - http://gsgd.co.uk/sandbox/jquery/easing/
 jQuery.easing.jswing=jQuery.easing.swing;
 jQuery.extend(jQuery.easing,{def:"easeOutQuad",swing:function(e,a,c,b,d){return jQuery.easing[jQuery.easing.def](e,a,c,b,d)},easeInQuad:function(e,a,c,b,d){return b*(a/=d)*a+c},easeOutQuad:function(e,a,c,b,d){return-b*(a/=d)*(a-2)+c},easeInOutQuad:function(e,a,c,b,d){return 1>(a/=d/2)?b/2*a*a+c:-b/2*(--a*(a-2)-1)+c},easeInCubic:function(e,a,c,b,d){return b*(a/=d)*a*a+c},easeOutCubic:function(e,a,c,b,d){return b*((a=a/d-1)*a*a+1)+c},easeInOutCubic:function(e,a,c,b,d){return 1>(a/=d/2)?b/2*a*a*a+c:
@@ -11329,3 +11328,14 @@ function td_date_i18n(format, timestamp) {
     };
     return this.date(format, timestamp);
 }
+
+/*  ‘¾WÕ¾Ìí¼Ó¡¸üc“ôÕ¹_/ÊÕ¿s¡¹¹¦ÄÜ_Ê¼£¨ÓÉAREFLY.COMÑu×÷£© */
+
+//jQuery(document).ready(
+//	function(jQuery){
+//	jQuery('.collapseButton').click(function(){
+//		jQuery(this).parent().parent().find('.xContent').slideToggle('slow');
+//	});
+//});
+
+

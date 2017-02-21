@@ -11,6 +11,17 @@ $td_mod_single = new td_module_single($post);
 ?>
 <div class="td-main-content-wrap td-container-wrap">
 
+<div class="featured-image-wrap">
+  <?php
+        // override the default featured image by the templates (single.php and home.php/index.php - blog loop)
+        if (!empty(td_global::$load_featured_img_from_template)) {
+            echo $td_mod_single->get_image(td_global::$load_featured_img_from_template);
+        } else {
+            echo $td_mod_single->get_image('td_640x0');
+        }
+        ?>
+  </div>
+
     <div class="td-container td-post-template-default <?php echo $td_sidebar_position; ?>">
         <div class="td-crumb-container"><?php echo td_page_generator::get_single_breadcrumbs($td_mod_single->title); ?></div>
 

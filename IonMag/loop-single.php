@@ -42,16 +42,8 @@ if (have_posts()) {
         
         <div class="td-post-content">
 
-        <?php
-        // override the default featured image by the templates (single.php and home.php/index.php - blog loop)
-        if (!empty(td_global::$load_featured_img_from_template)) {
-            echo $td_mod_single->get_image(td_global::$load_featured_img_from_template);
-        } else {
-            echo $td_mod_single->get_image('td_640x0');
-        }
-        ?>
-
         <?php echo $td_mod_single->get_content();?>
+
         </div>
 
         <footer>
