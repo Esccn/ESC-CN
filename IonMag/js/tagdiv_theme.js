@@ -3045,7 +3045,14 @@ jQuery().ready(function() {
     if ( ( 'undefined' !== typeof window.tds_general_modal_image ) && ( '' !== window.tds_general_modal_image ) ) {
         jQuery( '.single .td-post-content a > img' ).filter(function( index, element ) {
             if ( -1 !== element.className.indexOf( 'wp-image' ) ) {
-                jQuery( element ).parent().addClass( 'td-modal-image' );
+
+                var image_link = jQuery( element ).parent();
+                var href = image_link.attr("href");
+
+                //add the modal class only on post image links that do not link to attachment pages or custom URLs ( for media linking images only )
+                if ((-1 !== href.indexOf(document.domain)) && (-1 !== href.indexOf('uploads'))) {
+                    image_link.addClass( 'td-modal-image' );
+                }
             }
         });
     }
@@ -10657,6 +10664,16 @@ jQuery( window ).ready(function() {
             //increment the counter
             iCont++;
         });
+
+        /**
+         * if an item does not have posts no animation is required so no item is created
+         * because the tdTrendingNow library for animations is not needed
+         * @see tdTrendingNow.addItem
+         */
+
+        if (typeof item.trendingNowPosts === 'undefined' || item.trendingNowPosts.length < 1) {
+            return;
+        }
         //add the item
         tdTrendingNow.addItem(item);
 
@@ -11329,13 +11346,23 @@ function td_date_i18n(format, timestamp) {
     return this.date(format, timestamp);
 }
 
-/*  ‘¾WÕ¾Ìí¼Ó¡¸üc“ôÕ¹_/ÊÕ¿s¡¹¹¦ÄÜ_Ê¼£¨ÓÉAREFLY.COMÑu×÷£© */
+//featured-image post-----------------
 
-//jQuery(document).ready(
-//	function(jQuery){
-//	jQuery('.collapseButton').click(function(){
-//		jQuery(this).parent().parent().find('.xContent').slideToggle('slow');
-//	});
-//});
+  $('.featured-image-wrap').siblings('.td-container').children('.td-pb-row').children('.td-main-content').css('margin-top','-200px');
 
+//social icon hover--------------------
 
+  //$(document).ready(function(){
+      $('.iconhover1').mouseover(function(){
+          $('#icon-wechat').stop().fadeIn("260");
+      });
+      $(".iconhover1").mouseout(function(){
+          $("#icon-wechat").fadeOut("260");
+      });
+      $('.iconhover2').mouseover(function(){
+          $('#icon-qqchat').stop().fadeIn("260");
+      });
+      $(".iconhover2").mouseout(function(){
+          $("#icon-qqchat").fadeOut("260");
+      });
+ // });

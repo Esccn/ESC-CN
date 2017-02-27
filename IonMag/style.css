@@ -7883,6 +7883,11 @@ body .dropcap3 {
 .comment-form .td-warning-email-error {
   display: none;
 }
+.comment-form:after {
+  content: '';
+  clear: both;
+  display: block;
+}
 .comment-form textarea {
   display: block;
 }
@@ -7911,9 +7916,6 @@ body .dropcap3 {
   font-size: 15px;
   line-height: 1;
   font-weight: 600;
-}
-.comment-reply-title {
-  display: none;
 }
 /*  ----------------------------------------------------------------------------
     Comment section
@@ -8195,6 +8197,9 @@ body .dropcap3 {
 /*  ----------------------------------------------------------------------------
     Breadcrumbs
 */
+.page .td-crumb-container {
+  display: none;
+}
 .td-crumb-container {
   min-height: 33px;
   margin-bottom: 10px;
@@ -12322,6 +12327,7 @@ body.td-animation-stack-type2 .post a.td-sml-link-to-image > img {
 /* sidebar */
 .home_time_countdown {
   background: url('/wp-content/uploads/2017/01/Countdown.jpg');
+  width: 353px;
   height: 190px;
   font-size: 28px;
   padding-top: 20px;
@@ -12408,6 +12414,7 @@ body.td-animation-stack-type2 .post a.td-sml-link-to-image > img {
 .social_icons li a {
   width: 40px;
   height: 38px;
+  position: relative;
 }
 .social_icons li:nth-child(1) {
   transition: ease 0.5s;
@@ -12449,7 +12456,24 @@ body.td-animation-stack-type2 .post a.td-sml-link-to-image > img {
   background-color: #55acee;
   background-position: -120px -40px;
 }
-
+img#icon-wechat {
+  top: 0px;
+  right: 0px;
+  z-index: 2;
+  cursor: auto;
+  display: none;
+  position: absolute;
+  box-shadow: 0px 4px 16px 0px rgba(0,0,0,0.2);
+}
+img#icon-qqchat {
+  top: 0px;
+  right: 0px;
+  z-index: 2;
+  cursor: auto;
+  display: none;
+  position: absolute;
+  box-shadow: 0px 4px 16px 0px rgba(0,0,0,0.2);
+}
 /* post page ----------------------------------------------*/
 
 .featured-image-wrap {
@@ -12477,7 +12501,7 @@ body.td-animation-stack-type2 .post a.td-sml-link-to-image > img {
   background: #fff;
   border-radius: 4px;
   padding: 25px 0 0 0;
-  margin: -200px 0 42px 0;
+  margin: 30px 0 42px 0;
   -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.1);
      -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.1);
           box-shadow: 0 1px 1px rgba(0,0,0,0.1);
