@@ -34,7 +34,6 @@ function td_css_generator() {
     a,
     cite a:hover,
     .td-theme-wrap blockquote p,
-    .td_module_wrap:hover .entry-title a,
     .td-next-prev-wrap a:hover,
     .td_ajax_load_more:hover,
     .td-wrapper-pulldown-filter .td-pulldown-filter-display-option:hover,
@@ -370,7 +369,6 @@ function td_css_generator() {
     #td-mobile-nav .td-register-section a,
     #td-mobile-nav .td_display_err,
     .td-search-wrap-mob .td_module_wrap .entry-title a,
-    .td-search-wrap-mob .td_module_wrap:hover .entry-title a,
     .td-search-wrap-mob .td-post-date {
         color: @mobile_text_color;
     }

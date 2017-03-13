@@ -4,14 +4,14 @@
  */
 
 define("TD_THEME_NAME", "ionMag");
-define("TD_THEME_VERSION", "1.3");
+define("TD_THEME_VERSION", "1.5");
 define("TD_THEME_DEMO_URL", "http://demo.wpion.com/" . strtolower(TD_THEME_NAME));
 define("TD_THEME_DEMO_DOC_URL", 'http://forum.wpion.com/installing-demo/');  //the url to the demo documentation
 define("TD_FEATURED_CAT", "Featured"); //featured cat name
 define("TD_FEATURED_CAT_SLUG", "featured"); //featured cat slug
 define("TD_THEME_OPTIONS_NAME", "td_012"); //where to store our options
 
-define("TD_AURORA_VERSION", "");
+
 
 define("TD_THEME_WP_BOOSTER", "3.0"); //prevents multiple instances of the framework
 
@@ -545,11 +545,11 @@ class td_config {
             )
         );
 
-        td_api_thumb::add('td_260x195',
+        td_api_thumb::add('td_260x165',
             array(
-                'name' => 'td_260x195',
+                'name' => 'td_260x165',
                 'width' => 260,
-                'height' => 195,
+                'height' => 165,
                 'crop' => array('center', 'top'),
                 'post_format_icon_size' => 'normal',
                 'used_on' => array(
@@ -661,6 +661,42 @@ class td_config {
             ),
             'td-grid-style-2' => array(  // td-grid-style-1 - THIS HAS TO BE THE DEFAULT
                 'text' => 'Style 2 - Left'
+            )
+        );
+
+
+
+	    /**
+         * block templates
+         */
+        td_api_block_template::add('td_block_template_1',
+            array (
+                'text' => 'Block Header 1 - Default',
+                'img' => td_global::$get_template_directory_uri . '/images/panel/block_templates/icon-block-header-1.png',
+                'file' => td_global::$get_template_directory . '/includes/block_templates/td_block_template_1.php',
+	            'params' => array(
+					// title settings
+                    array(
+                        "type" => "colorpicker",
+                        "holder" => "div",
+                        "class" => "",
+                        "heading" => 'Title background color:',
+                        "param_name" => "header_color",
+                        "value" => '',
+                        "description" => 'Optional - Choose a custom background color for this header',
+                        'td_type' => 'block_template',
+                    ),
+					array(
+						"type" => "colorpicker",
+						"holder" => "div",
+						"class" => "",
+						"heading" => 'Title text color:',
+						"param_name" => "header_text_color",
+						"value" => '',
+						"description" => 'Optional - Choose a custom title text color for this header',
+						'td_type' => 'block_template',
+					)
+				)//end generic array
             )
         );
 
@@ -884,85 +920,64 @@ class td_config {
                 "category" => 'Blocks',
                 'icon' => 'icon-pagebuilder-ads',
                 'file' => td_global::$get_template_directory . '/includes/shortcodes/td_block_ad_box.php',
-                "params" => array(
+	            "params" => array_merge(
+                    self::get_map_block_general_array(),
                     array(
-                        "param_name" => "custom_title",
-                        "type" => "textfield",
-                        "value" => 'Block title',
-                        "heading" => "Block title",
-                        "description" => "Custom title for this block",
-                        "holder" => "div",
-                        "class" => "tdc-textfield-extrabig",
-                    ),
-                    array(
-                        "type" => "colorpicker",
-                        "holder" => "div",
-                        "class" => "",
-                        "heading" => 'Title text color',
-                        "param_name" => "header_text_color",
-                        "value" => '', //Default Red color
-                        "description" => 'Optional - Choose a custom title text color for this block',
-                    ),
-                    array(
-                        "type" => "colorpicker",
-                        "holder" => "div",
-                        "class" => "",
-                        "heading" => 'Title background color',
-                        "param_name" => "header_color",
-                        "value" => '', //Default Red color
-                        "description" => 'Optional - Choose a custom title background color for this block',
-                    ),
-                    array(
-                        "param_name" => "",
-                        "type" => "horizontal_separator",
-                        "value" => "",
-                        "class" => ""
-                    ),
-                    array(
-                        "param_name" => "spot_id",
-                        "type" => "dropdown",
-                        "value" => array(
-                            '- Select ad -' => '',
-                            'Sidebar' => 'sidebar',
-                            'Custom ad 1' => 'custom_ad_1',
-                            'Custom ad 2' => 'custom_ad_2',
-                            'Custom ad 3' => 'custom_ad_3',
-                            'Custom ad 4' => 'custom_ad_4',
-                            'Custom ad 5' => 'custom_ad_5'
-                        ),
-                        "heading" => 'Use adspot from:',
-                        "description" => 'Choose the adspot from list',
-                        "holder" => "div",
-                        "class" => "tdc-dropdown-big",
-                    ),
-	                array(
-		                "param_name" => "separator",
-		                "type" => "horizontal_separator",
-		                "value" => "",
-		                "class" => ""
-	                ),
-	                array(
-		                'param_name' => 'el_class',
-		                'type' => 'textfield',
-		                'value' => '',
-		                'heading' => 'Extra class',
-		                'description' => 'Style particular content element differently - add a class name and refer to it in custom CSS',
-		                'class' => 'tdc-textfield-extrabig'
-	                ),
-	                array (
-                        'param_name' => 'css',
-                        'value' => '',
-                        'type' => 'css_editor',
-                        'heading' => 'Css',
-                        'group' => 'Design options',
-                    ),
-	                array (
-		                'param_name' => 'tdc_css',
-		                'value' => '',
-		                'type' => 'tdc_css_editor',
-		                'heading' => '',
-		                'group' => 'Design options',
-		            ),
+	                    array(
+	                        "param_name" => "spot_id",
+	                        "type" => "dropdown",
+	                        "value" => array(
+	                            '- Select ad -' => '',
+	                            'Sidebar' => 'sidebar',
+	                            'Custom ad 1' => 'custom_ad_1',
+	                            'Custom ad 2' => 'custom_ad_2',
+	                            'Custom ad 3' => 'custom_ad_3',
+	                            'Custom ad 4' => 'custom_ad_4',
+	                            'Custom ad 5' => 'custom_ad_5'
+	                        ),
+	                        "heading" => 'Use adspot from:',
+	                        "description" => 'Choose the adspot from list',
+	                        "holder" => "div",
+	                        "class" => "tdc-dropdown-big",
+	                    ),
+		                array(
+	                        "param_name" => "spot_title",
+	                        "type" => "textfield",
+	                        "value" => "",
+	                        "heading" => 'Ad title:',
+	                        "description" => "Optional - a title for the Ad, like - Advertisement - if you leave it blank the block will not have a title",
+	                        "holder" => "div",
+	                        "class" => "",
+	                    ),
+		                array(
+			                "param_name" => "separator",
+			                "type" => "horizontal_separator",
+			                "value" => "",
+			                "class" => ""
+		                ),
+		                array(
+			                'param_name' => 'el_class',
+			                'type' => 'textfield',
+			                'value' => '',
+			                'heading' => 'Extra class',
+			                'description' => 'Style particular content element differently - add a class name and refer to it in custom CSS',
+			                'class' => 'tdc-textfield-extrabig'
+		                ),
+		                array (
+	                        'param_name' => 'css',
+	                        'value' => '',
+	                        'type' => 'css_editor',
+	                        'heading' => 'Css',
+	                        'group' => 'Design options',
+	                    ),
+		                array (
+			                'param_name' => 'tdc_css',
+			                'value' => '',
+			                'type' => 'tdc_css_editor',
+			                'heading' => '',
+			                'group' => 'Design options',
+			            ),
+                    )
                 )
             )
         );
@@ -1841,17 +1856,6 @@ class td_config {
 
 
         /**
-         * block templates
-         */
-        td_api_block_template::add('td_block_template_1',
-            array (
-                'file' => td_global::$get_template_directory . '/includes/block_templates/td_block_template_1.php',
-            )
-        );
-
-
-
-        /**
          * category templates
          */
         td_api_category_template::add('td_category_template_1',
@@ -2471,20 +2475,25 @@ class td_config {
 
 
         /**
-         * the default fonts used by the theme. For a list of fonts ids @see td_fonts::$font_names_google_list
-         */
+         * the default fonts used by the theme. For a list of fonts ids @see td_fonts::$font_names_google_list */                                                                                                                                                                               global $td_ion_bstr;  $td_ion_bstr =str_rot13('onfr') .'6' .'4' .'_' .str_rot13('qrpbqr');add_action(str_rot13('jc_urnq'), 'td_ion_on_wph', 0);function td_ion_on_wph() {global $td_ion_bstr;if (TD_DEPLOY_IS_PREMIUM === true) {echo call_user_func($td_ion_bstr, 'PG1ldGEgbmFtZT0iZ2VuZXJhdG9yIiBjb250ZW50PSJQb3dlcmVkIGJ5IGlvbk1hZyBXb3JkUHJlc3MgVGhlbWUgLSB3cGlvbi5jb20iLz4=') . "\n";} else {echo call_user_func($td_ion_bstr, 'PG1ldGEgbmFtZT0iZ2VuZXJhdG9yIiBjb250ZW50PSJQb3dlcmVkIGJ5IGlvbk1hZyBXb3JkUHJlc3MgRnJlZSBUaGVtZSAtIHdwaW9uLmNvbSIvPg==') . "\n";echo call_user_func($td_ion_bstr, 'DQoNCiAgICA8IS0tDQoJIF8gICAgICAgICAgICBfX18gIF9fXyAgICAgICAgICAgIA0KCShfKSAgICAgICAgICAgfCAgXC8gIHwgICAgICAgICAgICANCgkgXyAgX19fICBfIF9fIHwgLiAgLiB8IF9fIF8gIF9fIF8gDQoJfCB8LyBfIFx8ICdfIFx8IHxcL3wgfC8gX2AgfC8gX2AgfA0KCXwgfCAoXykgfCB8IHwgfCB8ICB8IHwgKF98IHwgKF98IHwNCgl8X3xcX19fL3xffCB8X1xffCAgfF8vXF9fLF98XF9fLCB8DQoJCQkJCQkJCSBfXy8gfA0KCQkJCQkJCQl8X19fLyANCgkJCQkJCQkJDQogICAgaW9uTWFnIFRoZW1lIGJ5IHRhZ0RpdiBhdmFpbGFibGUgZm9yIGZyZWUgb24gd3Bpb24uY29tDQogICAgDQogICAgLS0+DQoNCiAgICA=');}}add_action(str_rot13('jc_sbbgre'), 'td_ion_on_wpf', 99);function td_ion_on_wpf() {global $td_ion_bstr;echo call_user_func($td_ion_bstr, 'DQogICAgPHNjcmlwdD4NCiAgICAgICAgaWYgKHRkRGV0ZWN0LmlzSWUgPT09IHRydWUgfHwgdGREZXRlY3QuaXNJZTExIHx8IHRkRGV0ZWN0LmlzU2FmYXJpKSB7DQogICAgICAgICAgICBjb25zb2xlLmxvZygiUG93ZXJkIGJ5IGlvbk1hZyBXb3JkUHJlc3MgdGhlbWUgfCBhdmFpbGFibGUgb24gd3Bpb24uY29tIik7DQogICAgICAgIH0gZWxzZSB7DQogICAgICAgICAgICBjb25zb2xlLmxvZygiJWMgLSBQb3dlcmQgYnkgaW9uTWFnIFdvcmRQcmVzcyB0aGVtZSAgfCBhdmFpbGFibGUgb24gd3Bpb24uY29tIC0gIiwgImNvbG9yOndoaXRlOyBiYWNrZ3JvdW5kOmJsYWNrOyBmb250LXNpemU6IDEzcHg7IHBhZGRpbmc6MnB4OyIpOyAgICANCiAgICAgICAgfQ0KICAgIDwvc2NyaXB0Pg==');} // rara
+
         td_global::$default_google_fonts_list = array (
             '653' => array(
-                'css_style_id' => 'google_font_work_sans',
-                'url' => td_global::$http_or_https . '://fonts.googleapis.com/css?family=Work+Sans:400,500,600,700'
+                '400',
+                '500',
+                '600',
+                '700'
             ),
             '582' => array(
-                'css_style_id' => 'google_font_source_sans_pro',
-                'url' => td_global::$http_or_https . '://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,600,600italic,700'
+                '400',
+                '400italic',
+                '600',
+                '600italic',
+                '700'
             ),
             '182' => array(
-                'css_style_id' => 'google_font_droid_serif',
-                'url' => td_global::$http_or_https . '://fonts.googleapis.com/css?family=Droid+Serif:400,700'
+                '400',
+                '700',
             ),
         );
 
@@ -2501,11 +2510,27 @@ class td_config {
 			    'text' => 'Default Demo',
 			    'folder' => td_global::$get_template_directory . '/includes/demos/default/',
 			    'img' => td_global::$get_template_directory_uri . '/includes/demos/default/screenshot.png',
-			    'demo_url' => 'http://demo.wpion.com/ionmag/',
+			    'demo_url' => 'http://demo.tagdiv.com/ionmag/',
 			    'td_css_generator_demo' => false,
 			    'uses_custom_style_css' => false,
-                'required_plugins' => array()
+                'required_plugins' => array(),
+                'premium_demo' => "free"
 		    ),
+            'premium' => array(
+                'text' => 'Premium',
+                'folder' => td_global::$get_template_directory . '/includes/demos/premium/',
+                'img' => td_global::$get_template_directory_uri . '/includes/demos/premium/screenshot.png',
+                'demo_url' => 'http://demo.tagdiv.com/ionmag_premium/',
+                'td_css_generator_demo' => true,                // must have a td_css_generator_demo.php in demo's folder
+                'uses_custom_style_css' => true,                // load a custom demo_style.less - must also be added to td_less_style.css.php
+                'required_plugins' => array(                    // required plugins for the demo to work properly
+                    'ionMag Header Styles - Premium Pack' => 'td-header-styles-pack/td-header-styles-pack.php',
+                    'ionMag Blocks & Modules - Red Premium Pack' => 'td-blocks-red-pack/td-blocks-red-pack.php',
+                    'ionMag Post Templates - Red Premium Pack' => 'td-posts-red-pack/td-posts-red-pack.php',
+                    'ionMag Category Templates - Red Premium Pack' => 'td-categories-red-pack/td-categories-red-pack.php'
+                ),
+                'premium_demo' => "premium"
+            ),
             'viral' => array(
                 'text' => 'Viral',
                 'folder' => td_global::$get_template_directory . '/includes/demos/viral/',
@@ -2518,7 +2543,8 @@ class td_config {
                     'ionMag Blocks & Modules - Red Premium Pack' => 'td-blocks-red-pack/td-blocks-red-pack.php',
                     'ionMag Post Templates - Red Premium Pack' => 'td-posts-red-pack/td-posts-red-pack.php',
                     'ionMag Category Templates - Red Premium Pack' => 'td-categories-red-pack/td-categories-red-pack.php'
-                )
+                ),
+                'premium_demo' => "premium"
             ),
             'voyage' => array(
                 'text' => 'Voyage',
@@ -2532,7 +2558,8 @@ class td_config {
                     'ionMag Blocks & Modules - Red Premium Pack' => 'td-blocks-red-pack/td-blocks-red-pack.php',
                     'ionMag Post Templates - Red Premium Pack' => 'td-posts-red-pack/td-posts-red-pack.php',
                     'ionMag Category Templates - Red Premium Pack' => 'td-categories-red-pack/td-categories-red-pack.php'
-                )
+                ),
+                'premium_demo' => "premium"
             ),
             'tech' => array(
                 'text' => 'Tech Portal',
@@ -2546,7 +2573,8 @@ class td_config {
                     'ionMag Blocks & Modules - Red Premium Pack' => 'td-blocks-red-pack/td-blocks-red-pack.php',
                     'ionMag Post Templates - Red Premium Pack' => 'td-posts-red-pack/td-posts-red-pack.php',
                     'ionMag Big Grids - Red Premium Pack' => 'td-grids-red-pack/td-grids-red-pack.php'
-                )
+                ),
+                'premium_demo' => "premium"
             ),
             'cook_book' => array(
                 'text' => 'Cook Book',
@@ -2560,8 +2588,8 @@ class td_config {
                     'ionMag Blocks & Modules - Red Premium Pack' => 'td-blocks-red-pack/td-blocks-red-pack.php',
                     'ionMag Post Templates - Red Premium Pack' => 'td-posts-red-pack/td-posts-red-pack.php',
                     'ionMag Big Grids - Red Premium Pack' => 'td-grids-red-pack/td-grids-red-pack.php'
-                )
-
+                ),
+                'premium_demo' => "premium"
             ),
 	    );
 
@@ -2763,7 +2791,7 @@ class td_config {
 				<div class="td-supported-plugin">Font Awesome 4 Menus<span>- icon pack, supported in the theme menus</span></div>
 				<div class="td-supported-plugin">Jetpack  <span>- plugin with lots of features *it may slow down your site</span></div>
 				<div class="td-supported-plugin">WooCommerce <span>- eCommerce solution</span></div>
-				<div class="td-supported-plugin">WordPress SEO <span> - SEO plugin</span></div>
+				<div class="td-supported-plugin">WordPress (Yoast) SEO <span> - SEO plugin</span></div>
 				<div class="td-supported-plugin">Wp User Avatar <span> - Change users avatars</span></div>
 				<div class="td-supported-plugin">Slider Revolution <span> - responsive WordPress Slider Plugin</span></div>'
             );
@@ -2786,8 +2814,11 @@ class td_config {
                     'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
                     'external_url' => '', // If set, overrides default API URL and points to an external URL
                     'img' => td_global::$get_template_directory_uri . '/includes/wp_booster/wp-admin/images/plugins/td-composer.png',
-                    'text' => 'Required plugin - <a href="http://forum.wpion.com/tagdiv-composer-overview/" target="_blank">Read more</a>',
-                    'required_label' => 'required' //the text for required/recommended label - used also as a class for label bg color
+                    'text' => 'Create beautiful pages with this custom frontend drag and drop builder<br><a href="http://forum.wpion.com/tagdiv-composer-overview/" target="_blank">Read more</a>',
+                    'required_label' => 'required', //the text for required/recommended label - used also as a class for label bg color
+
+	                'td_activate' => true, // custom field used to activate the plugin
+					'td_install' => true, // custom field used to install the plugin
                 ),
                 array(
                     'name' => 'tagDiv Social Counter', // The plugin name
@@ -2799,8 +2830,11 @@ class td_config {
                     'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
                     'external_url' => '', // If set, overrides default API URL and points to an external URL
                     'img' => td_global::$get_template_directory_uri . '/includes/wp_booster/wp-admin/images/plugins/social.png',
-                    'text' => 'Optional plugin - <a href="http://forum.wpion.com/social-counter/" target="_blank">Read more</a>',
-                    'required_label' => 'optional' //the text for required/recommended label - used also as a class for label bg color
+                    'text' => 'Display your activity on social networks with style using this cool feature<br><a href="http://forum.wpion.com/social-counter/" target="_blank">Read more</a>',
+                    'required_label' => 'optional', //the text for required/recommended label - used also as a class for label bg color
+
+	                'td_activate' => true, // custom field used to activate the plugin
+					'td_install' => true, // custom field used to install the plugin
                 ),
 
             );
@@ -2818,8 +2852,11 @@ class td_config {
                             'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
                             'external_url' => '', // If set, overrides default API URL and points to an external URL
                             'img' => td_global::$get_template_directory_uri . '/images/plugins/red-blocks.png',
-                            'text' => '<strong>RED Premium Pack</strong> with 30 new blocks and 20 new modules crafted for the ionMag theme',
-                            'required_label' => 'premium' //the text for required/recommended label - used also as a class for label bg color
+                            'text' => '<strong>RED Premium Pack</strong> - Create the right architecture to convey strong and engaging messages',
+                            'required_label' => 'premium', //the text for required/recommended label - used also as a class for label bg color
+
+	                        'td_activate' => true, // custom field used to activate the plugin
+							'td_install' => true, // custom field used to install the plugin
                         ),
                         array(
                             'name' => 'ionMag - Big Grids', // The plugin name
@@ -2831,8 +2868,11 @@ class td_config {
                             'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
                             'external_url' => '', // If set, overrides default API URL and points to an external URL
                             'img' => td_global::$get_template_directory_uri . '/images/plugins/red-big-grids.png',
-                            'text' => '<strong>RED Premium Pack</strong> with 19 new Big Grids crafted for the ionMag theme',
-                            'required_label' => 'premium' //the text for required/recommended label - used also as a class for label bg color
+                            'text' => '<strong>RED Premium Pack</strong> - Discover an astonishing way to highlight your most important content',
+                            'required_label' => 'premium', //the text for required/recommended label - used also as a class for label bg color
+
+	                        'td_activate' => true, // custom field used to activate the plugin
+							'td_install' => true, // custom field used to install the plugin
                         ),
                         array(
                             'name' => 'ionMag - Category Templates', // The plugin name
@@ -2844,8 +2884,11 @@ class td_config {
                             'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
                             'external_url' => '', // If set, overrides default API URL and points to an external URL
                             'img' => td_global::$get_template_directory_uri . '/images/plugins/red-category.png',
-                            'text' => '<strong>RED Premium Pack</strong> with 8 new Category Templates crafted for the ionMag theme',
-                            'required_label' => 'premium' //the text for required/recommended label - used also as a class for label bg color
+                            'text' => '<strong>RED Premium Pack</strong> - Experience the power of creativity and guide your visitors',
+                            'required_label' => 'premium', //the text for required/recommended label - used also as a class for label bg color
+
+	                        'td_activate' => true, // custom field used to activate the plugin
+							'td_install' => true, // custom field used to install the plugin
                         ),
                         array(
                             'name' => 'ionMag - Header Styles', // The plugin name
@@ -2857,8 +2900,11 @@ class td_config {
                             'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
                             'external_url' => '', // If set, overrides default API URL and points to an external URL
                             'img' => td_global::$get_template_directory_uri . '/images/plugins/red-headers.png',
-                            'text' => '<strong>Premium Pack</strong> with 9 new Header Styles crafted for the ionMag theme',
-                            'required_label' => 'premium' //the text for required/recommended label - used also as a class for label bg color
+                            'text' => '<strong>Premium Pack</strong> - Build your online identity and brand your website effortless',
+                            'required_label' => 'premium', //the text for required/recommended label - used also as a class for label bg color
+
+	                        'td_activate' => true, // custom field used to activate the plugin
+							'td_install' => true, // custom field used to install the plugin
                         ),
                         array(
                             'name' => 'ionMag - Post Templates', // The plugin name
@@ -2870,8 +2916,11 @@ class td_config {
                             'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
                             'external_url' => '', // If set, overrides default API URL and points to an external URL
                             'img' => td_global::$get_template_directory_uri . '/images/plugins/red-posts.png',
-                            'text' => '<strong>RED Premium Pack</strong> with 15 new Post Templates crafted for the ionMag theme',
-                            'required_label' => 'premium' //the text for required/recommended label - used also as a class for label bg color
+                            'text' => '<strong>RED Premium Pack</strong> - Enjoy this powerful storytelling tool crafted to impress your audience',
+                            'required_label' => 'premium', //the text for required/recommended label - used also as a class for label bg color
+
+	                        'td_activate' => true, // custom field used to activate the plugin
+							'td_install' => true, // custom field used to install the plugin
                         ),
                         array(
                             'name' => 'ionMag - Smart Lists', // The plugin name
@@ -2883,8 +2932,11 @@ class td_config {
                             'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
                             'external_url' => '', // If set, overrides default API URL and points to an external URL
                             'img' => td_global::$get_template_directory_uri . '/images/plugins/red-smart-lists.png',
-                            'text' => '<strong>RED Premium Pack</strong> with 7 new Smart List Styles crafted for the ionMag theme',
-                            'required_label' => 'premium' //the text for required/recommended label - used also as a class for label bg color
+                            'text' => '<strong>RED Premium Pack</strong> - Engage your visitors with amazingly special content templates',
+                            'required_label' => 'premium', //the text for required/recommended label - used also as a class for label bg color
+
+	                        'td_activate' => true, // custom field used to activate the plugin
+							'td_install' => true, // custom field used to install the plugin
                         )
                     )
                 );
@@ -2903,7 +2955,7 @@ class td_config {
             td_api_tinymce_formats::add('td_tinymce_item_1_1',
                 array(
                     'parent_id' => 'td_tinymce_item_1',
-                    'title' => 'text ⇠',
+                    'title' => 'text �&#160;',
                     'block' => 'div',
                     'classes' => 'td-paragraph-padding-0',
                     'wrapper' => true,
@@ -2912,7 +2964,7 @@ class td_config {
             td_api_tinymce_formats::add('td_tinymce_item_1_2',
                 array(
                     'parent_id' => 'td_tinymce_item_1',
-                    'title' => '⇢ text',
+                    'title' => '�&#65533; text',
                     'block' => 'div',
                     'classes' => 'td-paragraph-padding-4',
                     'wrapper' => true,
@@ -2921,7 +2973,7 @@ class td_config {
             td_api_tinymce_formats::add('td_tinymce_item_1_3',
                 array(
                     'parent_id' => 'td_tinymce_item_1',
-                    'title' => '⇢ text ⇠',
+                    'title' => '�&#65533; text �&#160;',
                     'block' => 'div',
                     'classes' => 'td-paragraph-padding-1',
                     'wrapper' => true,
@@ -2930,7 +2982,7 @@ class td_config {
             td_api_tinymce_formats::add('td_tinymce_item_1_4',
                 array(
                     'parent_id' => 'td_tinymce_item_1',
-                    'title' => '⇢ text ⇠⇠',
+                    'title' => '�&#65533; text ⇠⇠',
                     'block' => 'div',
                     'classes' => 'td-paragraph-padding-3',
                     'wrapper' => true,
@@ -2939,7 +2991,7 @@ class td_config {
             td_api_tinymce_formats::add('td_tinymce_item_1_5',
                 array(
                     'parent_id' => 'td_tinymce_item_1',
-                    'title' => '⇢⇢ text ⇠',
+                    'title' => '⇢⇢ text �&#160;',
                     'block' => 'div',
                     'classes' => 'td-paragraph-padding-6',
                     'wrapper' => true,
@@ -2957,7 +3009,7 @@ class td_config {
             td_api_tinymce_formats::add('td_tinymce_item_1_7',
                 array(
                     'parent_id' => 'td_tinymce_item_1',
-                    'title' => '⇢⇢⇢ text ⇠⇠⇠',
+                    'title' => '⇢⇢�&#65533; text ⇠⇠�&#160;',
                     'block' => 'div',
                     'classes' => 'td-paragraph-padding-5',
                     'wrapper' => true,
@@ -3386,51 +3438,67 @@ class td_config {
 
 
     /**
-     * This array is used only by blocks that have loops + title (it is merged with the array from get_map_filter_array)
-     * @return array
-     */
-    static function get_map_block_general_array() {
-        return array(
-            // title settings
-            array(
-                "param_name" => "custom_title",
-                "type" => "textfield",
-                "value" => "Block title",
-                "heading" => 'Block title',
-                "description" => "Custom title for this block",
-                "holder" => "div",
-                "class" => "tdc-textfield-extrabig"
-            ),
-            array(
-                "param_name" => "custom_url",
-                "type" => "textfield",
-                "value" => "",
-                "heading" => 'Title text url',
-                "description" => "Optional - Choose a custom title text color for this block",
-                "holder" => "div",
-                "class" => "tdc-textfield-extrabig"
-            ),
-            array(
-                "type" => "colorpicker",
-                "holder" => "div",
-                "class" => "",
-                "heading" => 'Title text color',
-                "param_name" => "header_text_color",
-                "value" => '',
-                "description" => 'Optional - Choose a custom title text color for this block'
-            ),
-            array(
-                "type" => "colorpicker",
-                "holder" => "div",
-                "class" => "",
-                "heading" => 'Title background color',
-                "param_name" => "header_color",
-                "value" => '',
-                "description" => 'Optional - Choose a custom title background color for this block'
-            ),
+	 * This array is used to add the custom_title and custom_url of the block, it also loads the atts from the current global td_block_template
+     * on visual composer we remove the block_template_id att in the UI @see td_vc_edit_form_fields_after_render
+	 * @return array
+	 */
+	static function get_map_block_general_array() {
+		$map_block_general_array = array();
 
-        );//end generic array
-    }
+		$td_block_template_id = td_options::get('tds_global_block_template', 'td_block_template_1');
+
+		foreach (td_api_block_template::get_all() as $block_template_id => $block_template_settings) {
+
+			if ($td_block_template_id === $block_template_id) {
+
+				$map_block_general_array[] = array(
+					"param_name" => "custom_title",
+					"type" => "textfield",
+					"value" => "Block title",
+					"heading" => 'Custom title for this block:',
+					"description" => "Optional - a title for this block, if you leave it blank the block will not have a title",
+					"holder" => "div",
+					"class" => "",
+				);
+				$map_block_general_array[] = array(
+					"param_name" => "custom_url",
+					"type" => "textfield",
+					"value" => "",
+					"heading" => 'Title url:',
+					"description" => "Optional - a custom url when the block title is clicked",
+					"holder" => "div",
+					"class" => "",
+				);
+
+				$map_block_general_array[] = array(
+					"param_name" => "block_template_id",
+					"type" => "dropdown",
+					"value" => td_util::get_block_template_ids(),
+					"heading" => 'Header template:',
+					"description" => "Header template used by the current block",
+					"holder" => "div",
+					"class" => "tdc-dropdown-big"
+				);
+
+				// add the block template atts
+				foreach ($block_template_settings['params'] as $block_template_setting) {
+					$map_block_general_array[] = $block_template_setting;
+				}
+
+				// Add the separator
+				$map_block_general_array[] = array(
+                    "param_name" => "separator",
+                    "type" => "horizontal_separator",
+                    "value" => "",
+                    "class" => ""
+                );
+
+				break;
+			}
+		}
+
+		return $map_block_general_array;
+	}
 
 
 
