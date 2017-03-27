@@ -13,7 +13,7 @@ class td_module_5 extends td_module {
 
         <div class="<?php echo $this->get_module_classes();?>" <?php echo $this->get_item_scope();?>>
             <div class="td-module-image td-module-image-float">
-                <?php echo $this->get_image('td_260x165');?>
+                <?php echo $this->get_image('td_260x157');?>
             </div>
 
             <div class="td-item-details td-category-small">

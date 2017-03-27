@@ -545,11 +545,11 @@ class td_config {
             )
         );
 
-        td_api_thumb::add('td_260x165',
+        td_api_thumb::add('td_260x157',
             array(
-                'name' => 'td_260x165',
+                'name' => 'td_260x157',
                 'width' => 260,
-                'height' => 165,
+                'height' => 157,
                 'crop' => array('center', 'top'),
                 'post_format_icon_size' => 'normal',
                 'used_on' => array(

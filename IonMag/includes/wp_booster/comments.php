@@ -14,11 +14,16 @@ if ((td_util::get_option('tds_disable_comments_sidewide') == '') && post_type_su
 	        // on Newspaper the css class 'td-pb-padding-side' is not applied
 	        $td_css_cls_pb_padding_side = '';
 	        $td_css_cls_block_title = '';
+            $global_block_template_id = td_options::get('tds_global_block_template', 'td_block_template_1');
 
 	        if ('Newsmag' == TD_THEME_NAME) {
 		        $td_css_cls_pb_padding_side = 'td-pb-padding-side';
 	        } else if ('Newspaper' == TD_THEME_NAME) {
-		        $td_css_cls_block_title = 'block-title';
+		        $td_css_cls_block_title = 'td-block-title';
+
+                if ($global_block_template_id === 'td_block_template_1') {
+                    $td_css_cls_block_title = 'block-title';
+                }
 	        }
 
 	        $num_comments = get_comments_number(); // get_comments_number returns only a numeric value
@@ -29,8 +34,8 @@ if ((td_util::get_option('tds_disable_comments_sidewide') == '') && post_type_su
 	        }
 	        ?>
 
-            <div class="td-comments-title-wrap <?php echo $td_css_cls_pb_padding_side ?>">
-                <h4 class="td-comments-title <?php echo $td_css_cls_block_title ?>"><span><?php echo $td_comments_no_text?></span></h4>
+            <div class="td-comments-title-wrap <?php echo $td_css_cls_pb_padding_side . $global_block_template_id?>">
+                <h4 class="td-comments-title <?php echo $td_css_cls_block_title?>"><span><?php echo $td_comments_no_text?></span></h4>
             </div>
 
 		        <ol class="comment-list <?php echo $td_css_cls_pb_padding_side ?>">
@@ -50,6 +55,9 @@ if ((td_util::get_option('tds_disable_comments_sidewide') == '') && post_type_su
             $commenter = wp_get_current_commenter();
             $req = get_option( 'require_name_email' );
             $aria_req = ( $req ? " aria-required='true'" : '' );
+
+            $user = wp_get_current_user();
+            $user_identity = $user->exists() ? $user->display_name : '';
 
 	        $fields = array(
 		        'author' =>
@@ -96,6 +104,16 @@ if ((td_util::get_option('tds_disable_comments_sidewide') == '') && post_type_su
 	        }
             $defaults['must_log_in'] = '<p class="must-log-in td-login-comment"><a class="td-login-modal-js" data-effect="mpf-td-login-effect" href="' . $url .'">' . __td('Log in to leave a comment', TD_THEME_NAME) . ' </a></p>';
 
+            $defaults['logged_in_as'] = '<p class="logged-in-as">' . sprintf(
+                    /* 1: edit user link, 2: accessibility text, 3: user name, 4: logout URL */
+                    '<a href="%1$s" aria-label="%2$s">' . __td('Logged in as', TD_THEME_NAME) . ' %3$s</a>. <a href="%4$s">' . __td('Log out?', TD_THEME_NAME) . '</a>',
+                    get_edit_user_link(),
+                    /* %s: user name */
+                    esc_attr( sprintf( __td( 'Logged in as %s. Edit your profile.' , TD_THEME_NAME), $user_identity ) ),
+                    $user_identity,
+                    wp_logout_url( apply_filters( 'the_permalink', get_permalink( get_the_ID() ) ) )
+                ) . '</p>';
+
             comment_form($defaults);
             //comment_form();
 
@@ -114,6 +132,47 @@ if ((td_util::get_option('tds_disable_comments_sidewide') == '') && post_type_su
  */
 function td_comment( $comment, $args, $depth ) {
     $GLOBALS['comment'] = $comment;
+
+    //主评论计数器
+	global $commentcount, $page, $wpdb;
+	if ( (int) get_option('page_comments') === 1 && (int) get_option('thread_comments') === 1 ) { //开启嵌套评论和分页才启用
+		if(!$commentcount) { //初始化楼层计数器
+			$page = ( get_query_var('cpage') ) ? get_query_var('cpage') : get_page_of_comment( $comment->comment_ID, $args ); //获取当前评论列表页码
+			$cpp = get_option('comments_per_page'); //获取每页评论显示数量
+			if ( get_option('comment_order') === 'desc' ) { //倒序
+				$cnt = get_comments('post_id='.$post->ID.'&status=approve&count=true'); //获取主评论总数量
+				if (ceil($cnt / $cpp) == 1 || ($page > 1 && $page  == ceil($cnt / $cpp))) { //如果评论只有1页或者是最后一页，初始值为主评论总数
+					$commentcount = $cnt + 1;
+				} else {
+					$commentcount = $cpp * $page + 1;
+				}
+			} else {
+				$commentcount = $cpp * ($page - 1);
+			}
+		}
+		if ( !$parent_id = $comment->comment_parent ) {
+			$commentcountText = '<div class="floor">';
+			if ( get_option('comment_order') === 'desc' ) { //倒序排列的评论
+				$commentcountText .= --$commentcount . ' 楼';
+			} else {
+				switch ($commentcount) {
+					case 0:
+						$commentcountText .= '<span class="floor-1">1 楼</span>'; ++$commentcount;
+						break;
+					case 1:
+						$commentcountText .= '<span class="floor-2">2 楼</span>'; ++$commentcount;
+						break;
+					case 2:
+						$commentcountText .= '<span class="floor-3">3 楼</span>'; ++$commentcount;
+						break;
+					default:
+						$commentcountText .= ++$commentcount . ' 楼';
+						break;
+				}
+			}
+			$commentcountText .= '</div">';
+		}
+	}
 
     $td_isPingTrackbackClass = '';
 
@@ -134,11 +193,10 @@ function td_comment( $comment, $args, $depth ) {
     $td_article_date_unix = @strtotime("{$comment->comment_date_gmt} GMT");
     //print_r($td_article_date_unix);
 
-
-	?>
+?>
         <li class="comment <?php echo $td_isPingTrackbackClass ?>" id="comment-<?php comment_ID() ?>">
-			<article>
-	            <footer>
+	<article>
+	        <footer>
                     <?php
 	                    //echo get_template_directory_uri() . "/images/avatar.jpg";
 	                    //echo get_avatar($td_comment_auth_email, 50, get_template_directory_uri() . "/images/avatar.jpg");
@@ -147,8 +205,9 @@ function td_comment( $comment, $args, $depth ) {
                     <cite><?php comment_author_link() ?></cite>
 
                     <a class="comment-link" href="#comment-<?php comment_ID() ?>">
-                        <time pubdate="<?php echo $td_article_date_unix ?>"><?php comment_date() ?> at <?php comment_time() ?></time>
+                        <time pubdate="<?php echo $td_article_date_unix ?>"><?php comment_date() ?> <?php comment_time() ?></time>
                     </a>
+                    <?php echo $commentcountText; //主评论计数器 ?>
                 </footer>
 
                 <div class="comment-content">
@@ -160,12 +219,12 @@ function td_comment( $comment, $args, $depth ) {
 
 	            <div class="comment-meta" id="comment-<?php comment_ID() ?>">
                     <?php comment_reply_link(array_merge( $args, array(
-                        'depth' => $depth,
-                        'max_depth' => $args['max_depth'],
-                        'reply_text' => __td('Reply', TD_THEME_NAME),
-                        'login_text' =>  __td('Log in to leave a comment', TD_THEME_NAME)
-                    )))
-                    ?>
+                       'depth' => $depth,
+                       'max_depth' => $args['max_depth'],
+                       'reply_text' => __td('Reply', TD_THEME_NAME),
+                       'login_text' =>  __td('Log in to leave a comment', TD_THEME_NAME)
+                       )))
+                     ?>
                 </div>
             </article>
     <?php

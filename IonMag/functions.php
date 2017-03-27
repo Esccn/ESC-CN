@@ -22,6 +22,40 @@ require_once('includes/wp_booster/td_wp_booster_functions.php');
 require_once('includes/td_css_generator.php');
 require_once('includes/widgets/td_page_builder_widgets.php'); // widgets
 
+//让WordPress支持用户名或邮箱登录
+function dr_email_login_authenticate( $user, $username, $password ) {
+	if ( is_a( $user, 'WP_User' ) )
+		return $user;
+ 
+	if ( !empty( $username ) ) {
+		$username = str_replace( '&', '&', stripslashes( $username ) );
+		$user = get_user_by( 'email', $username );
+		if ( isset( $user, $user->user_login, $user->user_status ) && 0 == (int) $user->user_status )
+			$username = $user->user_login;
+	}
+ 
+	return wp_authenticate_username_password( null, $username, $password );
+}
+remove_filter( 'authenticate', 'wp_authenticate_username_password', 20, 3 );
+add_filter( 'authenticate', 'dr_email_login_authenticate', 20, 3 );
+ 
+//替换“用户名”为“用户名 / 邮箱”
+function username_or_email_login() {
+	if ( 'wp-login.php' != basename( $_SERVER['SCRIPT_NAME'] ) )
+		return;
+ 
+	?><script type="text/javascript">
+	// Form Label
+	if ( document.getElementById('loginform') )
+		document.getElementById('loginform').childNodes[1].childNodes[1].childNodes[0].nodeValue = '<?php echo esc_js( __( '用户名/邮箱', 'email-login' ) ); ?>';
+ 
+	// Error Messages
+	if ( document.getElementById('login_error') )
+		document.getElementById('login_error').innerHTML = document.getElementById('login_error').innerHTML.replace( '<?php echo esc_js( __( '用户名' ) ); ?>', '<?php echo esc_js( __( '用户名/邮箱' , 'email-login' ) ); ?>' );
+	</script><?php
+}
+add_action( 'login_form', 'username_or_email_login' );
+
 //隐藏核心更新提示
 add_filter( 'pre_site_transient_update_core', create_function( '$a', "return null;" ) );
  
@@ -31,9 +65,58 @@ add_filter( 'pre_site_transient_update_plugins', create_function( '$b', "return 
  
 //隐藏主题更新提示
 remove_action( 'load-update-core.php', 'wp_update_themes' );
-add_filter( 'pre_site_transient_update_themes', create_function( '$a', "return null;" ) );
+add_filter( 'pre_site_transient_update_themes', create_function( '$c', "return null;" ) );
 
-//----------color-tag-cloud-----------
+//仅仅隐藏升级提示
+add_action(‘admin_menu’,’wp_hide_nag’);
+function wp_hide_nag() {
+remove_action( ‘admin_notices’, ‘update_nag’, 3 );
+}
+
+//自定义用户个人资料信息
+add_filter( 'user_contactmethods', 'wpdaxue_add_contact_fields' );
+function wpdaxue_add_contact_fields( $contactmethods ) {
+//	$contactmethods['qq'] = 'QQ';
+	unset( $contactmethods['behance'] );
+	unset( $contactmethods['blogger'] );
+	unset( $contactmethods['delicious'] );
+        unset( $contactmethods['deviantart'] );
+	unset( $contactmethods['digg'] );
+	unset( $contactmethods['dribbble'] );
+        unset( $contactmethods['evernote'] );
+	unset( $contactmethods['facebook'] );
+	unset( $contactmethods['flickr'] );
+        unset( $contactmethods['forrst'] );
+	unset( $contactmethods['googleplus'] );
+	unset( $contactmethods['grooveshark'] );
+        unset( $contactmethods['instagram'] );
+	unset( $contactmethods['lastfm'] );
+	unset( $contactmethods['linkedin'] );
+	unset( $contactmethods['mail-1'] );
+	unset( $contactmethods['myspace'] );
+        unset( $contactmethods['path'] );
+	unset( $contactmethods['paypal'] );
+	unset( $contactmethods['pinterest'] );
+        unset( $contactmethods['reddit'] );
+	unset( $contactmethods['rss'] );
+	unset( $contactmethods['share'] );
+        unset( $contactmethods['skype'] );
+	unset( $contactmethods['soundcloud'] );
+	unset( $contactmethods['spotify'] );
+        unset( $contactmethods['stackoverflow'] );
+	unset( $contactmethods['steam'] );
+	unset( $contactmethods['stumbleupon'] );
+        unset( $contactmethods['tumblr'] );
+	unset( $contactmethods['twitter'] );
+        unset( $contactmethods['vimeo'] );
+	unset( $contactmethods['vk'] );
+	unset( $contactmethods['windows'] );
+	unset( $contactmethods['wordpress'] );
+	unset( $contactmethods['yahoo'] );
+        unset( $contactmethods['youtube'] );
+	unset( $contactmethods['url'] );
+	return $contactmethods;
+}
 
 /* 爲WordPress添加「點擊展&#65533;_/收縮」功能&#65533;_始（由AREFLY.COM製作） */
 function xcollapse($atts, $content = null){
